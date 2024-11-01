@@ -35,10 +35,16 @@ def calculate_tfidf(tf, idf):
     return tfidf
 
 def generate_index_file(documents, document_paths):
+    inverted_index = defaultdict(lambda: defaultdict(int))
+    
+    for doc_id, doc_terms in enumerate(documents):
+        for term in doc_terms:
+            inverted_index[term][doc_id + 1] += 1  # doc_id + 1 to match the 1-based index
+
     with open('indice.txt', 'w') as index_file:
-        for i, doc_terms in enumerate(documents):
-            unique_terms = set(doc_terms)
-            index_file.write(f"doc{i+1}.txt: " + " ".join(unique_terms) + "\n")
+        for term, doc_dict in sorted(inverted_index.items()):
+            doc_entries = " ".join(f"{doc_id},{count}" for doc_id, count in sorted(doc_dict.items()))
+            index_file.write(f"{term}: {doc_entries}\n")
 
 def main(base_file):
     with open(base_file, 'r') as f:
@@ -62,6 +68,7 @@ def main(base_file):
             tfidf = calculate_tfidf(tf, idf)
             non_zero_tfidf = {term: weight for term, weight in tfidf.items() if weight > 0}
             if non_zero_tfidf:
+                # Ensure the format is "term, weight" with weight formatted to 4 decimal places
                 pesos_file.write(f"doc{i+1}.txt: " + " ".join(f"{term}, {weight:.4f}" for term, weight in non_zero_tfidf.items()) + "\n")
 
 if __name__ == "__main__":
