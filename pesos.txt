@@ -1,0 +1,3 @@
+doc1.txt: engracado, 0.4771 nao, 0.2291 ter, 0.6207 teto, 0.4771
+doc2.txt: nao, 0.1761 morar, 0.1761 tamber, 0.4771
+doc3.txt: casar, 0.6207 comigo, 0.6207 amor, 0.4771 facar, 0.4771 morar, 0.1761

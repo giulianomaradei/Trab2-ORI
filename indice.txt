@@ -1,0 +1,3 @@
+doc1.txt: ter teto casa nao engracado
+doc2.txt: casa tamber nao morar
+doc3.txt: casar morar casa amor comigo facar
